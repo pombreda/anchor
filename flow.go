@@ -7,18 +7,21 @@ import (
 )
 
 type Flow struct {
-	UUID    string    `json:"uuid"`
-	Name    string    `json:"name"`
-	Created time.Time `json:"created"`
+	UUID      string    `json:"uuid"`
+	Name      string    `json:"name"`
+	Pipelines []string  `json:"pipelines"`
+	Created   time.Time `json:"created"`
 }
 
 type CreateFlowOptions struct {
-	Name *string `json:"name" binding:"Required"`
+	Name      *string  `json:"name" binding:"Required"`
+	Pipelines []string `json:"pipelines"`
 }
 
 func (opts CreateFlowOptions) PrintName(name string) string {
 	return map[string]string{
-		"Name": "Flow name",
+		"Name":      "Flow name",
+		"Pipelines": "Pipelines",
 	}[name]
 }
 

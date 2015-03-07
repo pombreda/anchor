@@ -11,17 +11,15 @@ import (
 
 // Client represents a Vessel API client.
 type Client struct {
-	url         string
-	accessToken string
-	client      *http.Client
+	url    string
+	client *http.Client
 }
 
 // NewClient initializes and returns a API client.
-func NewClient(url, token string) *Client {
+func NewClient(url string) *Client {
 	return &Client{
-		url:         strings.TrimSuffix(url, "/"),
-		accessToken: token,
-		client:      &http.Client{},
+		url:    strings.TrimSuffix(url, "/"),
+		client: &http.Client{},
 	}
 }
 
@@ -30,7 +28,6 @@ func (c *Client) getResponse(method, path string, header http.Header, body io.Re
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Authorization", "token "+c.accessToken)
 	for k, v := range header {
 		req.Header[k] = v
 	}
